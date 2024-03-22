@@ -42,4 +42,4 @@ int main()
 }
 ```
 
-> Make sure to replace int with the appropriate data type according to your requirements.
+> Make sure to create your own struct with the needed data type according to your requirements.

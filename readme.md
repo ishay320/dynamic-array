@@ -1,6 +1,6 @@
 # dynamic array in `C`
 
-This header file provides a simple dynamic array implementation in `C`.
+This header only project provides a simple dynamic array implementation in `C`.
 
 ## Usage
 

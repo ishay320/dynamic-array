@@ -38,16 +38,16 @@ struct da {
  * @param array The dynamic array struct to initialize.
  * @param initial_size The initial size of the array.
  */
-#define da_init(array, initial_size)                                  \
-    do {                                                              \
-        (array).data = malloc(sizeof((array).data) * (initial_size)); \
-        if (!(array).data) {                                          \
-            fprintf(stderr, "%s:%d could not malloc: %s\n", __FILE__, \
-                    __LINE__, strerror(errno));                       \
-            exit(1);                                                  \
-        }                                                             \
-        (array).size = (initial_size);                                \
-        (array).len  = 0;                                             \
+#define da_init(array, initial_size)                                        \
+    do {                                                                    \
+        (array).data = malloc(sizeof((array).data) * (initial_size));       \
+        if (!(array).data) {                                                \
+            fprintf(stderr, "%s:%d could not init the dynamic array: %s\n", \
+                    __FILE__, __LINE__, strerror(errno));                   \
+            exit(1);                                                        \
+        }                                                                   \
+        (array).size = (initial_size);                                      \
+        (array).len  = 0;                                                   \
     } while (0)
 
 /**
@@ -78,8 +78,10 @@ struct da {
                 (array).data,                                                 \
                 (sizeof((array).data) * ((array).size + !(array).size)) * 2); \
             if (!data) {                                                      \
-                fprintf(stderr, "%s:%d go buy more ram lol: %s\n", __FILE__,  \
-                        __LINE__, strerror(errno));                           \
+                fprintf(                                                      \
+                    stderr,                                                   \
+                    "%s:%d failed to push data to the dynamic array: %s\n",   \
+                    __FILE__, __LINE__, strerror(errno));                     \
                 exit(1);                                                      \
             }                                                                 \
             else {                                                            \
@@ -107,8 +109,9 @@ struct da {
                 realloc((array).data,                                         \
                         sizeof(*(array).data) * ((array).size + (new_size))); \
             if (data == NULL) {                                               \
-                fprintf(stderr, "%s:%d go buy more ram lol: %s\n", __FILE__,  \
-                        __LINE__, strerror(errno));                           \
+                fprintf(stderr,                                               \
+                        "%s:%d failed to reserve the dynamic array: %s\n",    \
+                        __FILE__, __LINE__, strerror(errno));                 \
                 exit(1);                                                      \
             }                                                                 \
             else {                                                            \

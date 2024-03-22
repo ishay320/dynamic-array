@@ -100,21 +100,22 @@ struct da {
  * @todo return error
  */
 // TODO: check if its working
-#define da_reserve(array, new_size)                                          \
-    do {                                                                     \
-        if ((array).size < (new_size)) {                                     \
-            typeof((array).data) data =                                      \
-                realloc((array).data, (array).size + (new_size));            \
-            if (data == NULL) {                                              \
-                fprintf(stderr, "%s:%d go buy more ram lol: %s\n", __FILE__, \
-                        __LINE__, strerror(errno));                          \
-                exit(1);                                                     \
-            }                                                                \
-            else {                                                           \
-                (array).size += (new_size);                                  \
-                (array).data = data;                                         \
-            }                                                                \
-        }                                                                    \
+#define da_reserve(array, new_size)                                           \
+    do {                                                                      \
+        if ((array).size < (new_size)) {                                      \
+            typeof((array).data) data =                                       \
+                realloc((array).data,                                         \
+                        sizeof(*(array).data) * ((array).size + (new_size))); \
+            if (data == NULL) {                                               \
+                fprintf(stderr, "%s:%d go buy more ram lol: %s\n", __FILE__,  \
+                        __LINE__, strerror(errno));                           \
+                exit(1);                                                      \
+            }                                                                 \
+            else {                                                            \
+                (array).size += (new_size);                                   \
+                (array).data = data;                                          \
+            }                                                                 \
+        }                                                                     \
     } while (0)
 
 #endif  // DA_H
